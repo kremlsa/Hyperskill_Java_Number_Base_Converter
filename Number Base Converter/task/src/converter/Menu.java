@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Menu {
 
-    Converter conv = new Converter();
+    SubMenu subMenu = new SubMenu();
     Scanner sc = new Scanner(System.in);
     String input = "";
     String number;
@@ -12,26 +12,15 @@ public class Menu {
 
     public void run() {
         do {
-            System.out.println("Do you want to convert /from decimal or /to decimal? (To quit type /exit) ");
+            System.out.println("Enter two numbers in format:" +
+                    " {source base} {target base} (To quit type /exit)");
             input = sc.nextLine();
             switch (input) {
-                case "/from":
-                    System.out.print("Enter a number in decimal system: ");
-                    number = sc.nextLine();
-                    System.out.print("Enter the target base: ");
-                    base = Integer.parseInt(sc.nextLine());
-                    System.out.println("Conversion result: "
-                            + conv.conv(10, number, base));
-                    break;
-                case "/to":
-                    System.out.print("Enter source number: ");
-                    number = sc.nextLine();
-                    System.out.print("Enter source base: ");
-                    base = Integer.parseInt(sc.nextLine());
-                    System.out.println("Conversion to decimal result: "
-                            + conv.conv(base, number, 10));
+                case "/exit":
                     break;
                 default:
+                    subMenu.run(Integer.parseInt(input.split(" ")[0]),
+                            Integer.parseInt(input.split(" ")[1]));
                     break;
             }
         } while (!input.equals("/exit"));

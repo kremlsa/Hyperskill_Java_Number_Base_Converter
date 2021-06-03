@@ -563,6 +563,81 @@ files:
     \ 1 == resultIndex;\n            }\n            \n        } else {\n         \
     \   return true;\n        }\n        \n    }\n}\n"
   learner_created: false
+- name: src/converter/SubMenu.java
+  visible: true
+  text: |
+    package converter;
+
+    import java.util.Scanner;
+
+    public class SubMenu {
+        Converter conv = new Converter();
+        Scanner sc = new Scanner(System.in);
+        String input = "";
+
+        public void run(int oldRadix, int newRadix) {
+            do {
+                System.out.println("Enter number in base " +
+                        oldRadix + " to convert to base " + newRadix  +
+                        " (To go back type /back) ");
+                input = sc.nextLine();
+                switch (input) {
+                    case "/back":
+                        break;
+                    default:
+                        System.out.println("Conversion result: "
+                                + conv.conv(oldRadix, input, newRadix));
+                        break;
+                }
+            } while (!input.equals("/back"));
+        }
+    }
+  learner_created: true
+- name: src/converter/Converter.java
+  visible: true
+  text: |
+    package converter;
+
+    public class Converter {
+
+        public String conv(int oldRadix, String numberString, int radix) {
+            long number = Long.parseLong(numberString, oldRadix);
+            return Long.toString(number, radix);
+        }
+    }
+  learner_created: true
+- name: src/converter/Menu.java
+  visible: true
+  text: |
+    package converter;
+
+    import java.util.Scanner;
+
+    public class Menu {
+
+        SubMenu subMenu = new SubMenu();
+        Scanner sc = new Scanner(System.in);
+        String input = "";
+        String number;
+        int base;
+
+        public void run() {
+            do {
+                System.out.println("Enter two numbers in format:" +
+                        " {source base} {target base} (To quit type /exit)");
+                input = sc.nextLine();
+                switch (input) {
+                    case "/exit":
+                        break;
+                    default:
+                        subMenu.run(Integer.parseInt(input.split(" ")[0]),
+                                Integer.parseInt(input.split(" ")[1]));
+                        break;
+                }
+            } while (!input.equals("/exit"));
+        }
+    }
+  learner_created: true
 feedback_link: https://hyperskill.org/projects/181/stages/916/implement#comment
 status: Unchecked
 record: -1
